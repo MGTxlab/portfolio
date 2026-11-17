@@ -1,6 +1,9 @@
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import { imagetools } from 'vite-imagetools'
+import { existsSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 /**
  * Perf : le CSS (≈5 Ko gzip) est injecté dans le HTML au lieu d'être un fichier
@@ -33,8 +36,31 @@ function inlineCssAndPreloadFont(): Plugin {
   }
 }
 
+/** Affiche dans le journal de build le chemin absolu où le site est écrit (diagnostic Vercel). */
+function logOutDir(): Plugin {
+  return {
+    name: 'log-out-dir',
+    apply: 'build',
+    closeBundle() {
+      const ok = existsSync(resolve(OUT_DIR, 'index.html'))
+      console.log(`\n[sortie] ${resolve(OUT_DIR, 'index.html')} ${ok ? '(présent)' : '(ABSENT)'}`)
+      console.log(`[sortie] dossier de travail : ${process.cwd()}`)
+    },
+  }
+}
+
+// Chemins absolus : « dist » est toujours créé à côté de ce fichier (racine du dépôt),
+// quel que soit le dossier depuis lequel la commande est lancée.
+const ROOT = dirname(fileURLToPath(import.meta.url))
+const OUT_DIR = resolve(ROOT, 'dist')
+
 // Hébergé sur Vercel, à la racine du domaine (https://gastontraore.dev/).
 export default defineConfig({
+  root: ROOT,
   base: '/',
-  plugins: [react(), imagetools(), inlineCssAndPreloadFont()],
+  build: {
+    outDir: OUT_DIR,
+    emptyOutDir: true,
+  },
+  plugins: [react(), imagetools(), inlineCssAndPreloadFont(), logOutDir()],
 })
