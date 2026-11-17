@@ -1,6 +1,6 @@
 // Captures desktop (1440) et mobile (390) avec Playwright.
 // Usage : npm run dev (dans un autre terminal), puis `npm run shots [url] [outdir]`
-import { chromium } from 'playwright'
+import { launch } from './browser.mjs'
 import { mkdirSync } from 'node:fs'
 
 const url = process.argv[2] ?? 'http://localhost:5173/'
@@ -8,8 +8,7 @@ const out = process.argv[3] ?? 'shots'
 const reduce = process.env.REDUCE === '1'
 mkdirSync(out, { recursive: true })
 
-// CHROME=chemin/vers/chrome.exe pour réutiliser un Chromium déjà installé
-const browser = await chromium.launch(process.env.CHROME ? { executablePath: process.env.CHROME } : {})
+const browser = await launch()
 for (const [name, width, height] of [['desktop', 1440, 900], ['mobile', 390, 844]]) {
   const page = await browser.newPage({
     viewport: { width, height },
@@ -19,7 +18,13 @@ for (const [name, width, height] of [['desktop', 1440, 900], ['mobile', 390, 844
   const errors = []
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()))
   page.on('pageerror', (e) => errors.push(e.message))
-  await page.goto(url, { waitUntil: 'networkidle' })
+  try {
+    await page.goto(url, { waitUntil: 'networkidle' })
+  } catch {
+    console.error(`Impossible d'ouvrir ${url}. Lance d'abord « npm run dev » dans un autre terminal.`)
+    await browser.close()
+    process.exit(1)
+  }
   await page.waitForTimeout(300)
   await page.screenshot({ path: `${out}/${name}-intro-0.3s.png` })
   await page.waitForTimeout(800)

@@ -1,6 +1,6 @@
 // Génère public/og.png (1200×630, aperçu LinkedIn) et public/apple-touch-icon.png (180×180).
 // Usage : node scripts/og.mjs   (CHROME=... pour réutiliser un Chromium existant)
-import { chromium } from 'playwright'
+import { launch } from './browser.mjs'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { raw, filtered, smoothstep, lerp } from '../src/lib/signal.ts'
@@ -46,7 +46,7 @@ const icon = `${base}
   <svg width="120" height="120" viewBox="-16 -16 32 32"><path d="M0 -12L12 0L0 12L-12 0Z M0 -5L5 0L0 5L-5 0Z" fill="none" stroke="#e9a23b" stroke-width="1.6"/></svg>
 </div>`
 
-const browser = await chromium.launch(process.env.CHROME ? { executablePath: process.env.CHROME } : {})
+const browser = await launch()
 for (const [html, w, h, out] of [[og, 1200, 630, 'public/og.png'], [icon, 180, 180, 'public/apple-touch-icon.png']]) {
   const page = await browser.newPage({ viewport: { width: w, height: h } })
   await page.setContent(html, { waitUntil: 'load' })
