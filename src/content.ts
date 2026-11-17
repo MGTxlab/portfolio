@@ -9,7 +9,7 @@ export type Lang = 'fr' | 'en'
 
 export const site = {
   // URL publique du site (sert pour l'aperçu LinkedIn / Open Graph). À ajuster après déploiement.
-  url: 'https://mgtxlab.github.io/portfolio/',
+  url: 'https://gastontraore.dev/',
   email: 'traoremamadouditgaston@gmail.com',
   github: 'https://github.com/MGTxlab',
   linkedin: 'https://www.linkedin.com/in/mamadou-dit-gaston-traor%C3%A9-5786ba3b9',

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mgtxlab.github.io/portfolio/sitemap.xml
+Sitemap: https://gastontraore.dev/sitemap.xml

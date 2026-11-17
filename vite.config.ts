@@ -26,17 +26,15 @@ function inlineCssAndPreloadFont(): Plugin {
       }
       const font = Object.keys(bundle).find((n) => /schibsted-grotesk-latin-wght-normal.*\.woff2$/.test(n))
       if (font) {
-        const base = process.env.BASE ?? '/'
-        src = src.replace('</title>', `</title>\n    <link rel="preload" href="${base}${font}" as="font" type="font/woff2" crossorigin />`)
+        src = src.replace('</title>', `</title>\n    <link rel="preload" href="/${font}" as="font" type="font/woff2" crossorigin />`)
       }
       html.source = src
     },
   }
 }
 
-// BASE : '/portfolio/' si le dépôt s'appelle « portfolio » (GitHub Pages),
-// '/' pour un dépôt MGTxlab.github.io ou pour Vercel. Défini automatiquement par le workflow.
+// Hébergé sur Vercel, à la racine du domaine (https://gastontraore.dev/).
 export default defineConfig({
-  base: process.env.BASE ?? '/',
+  base: '/',
   plugins: [react(), imagetools(), inlineCssAndPreloadFont()],
 })

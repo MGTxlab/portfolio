@@ -42,32 +42,15 @@ Si Playwright réclame un navigateur : `npx playwright install chromium`.
 
 **Couleurs, typos, espacements** : tout est centralisé dans [`src/styles/tokens.css`](src/styles/tokens.css).
 
-## Déploiement gratuit sur GitHub Pages
+## Déploiement (Vercel)
 
-Le workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) construit et publie le site à chaque push sur `main`.
+Le site est hébergé sur **Vercel** et servi sur **https://gastontraore.dev**. La configuration est dans [`vercel.json`](vercel.json) : preset Vite, build `npm run build`, dossier `dist`. La version de Node est fixée à 24 dans `package.json` (`engines`), pour que Vercel utilise la même version de npm que ton PC.
 
-1. Sur GitHub, crée un dépôt public, par exemple `portfolio` (adresse : `https://mgtxlab.github.io/portfolio/`) ou `MGTxlab.github.io` (adresse : `https://mgtxlab.github.io/`).
-2. Dans le dossier du projet :
-   ```bash
-   git init
-   git add .
-   git commit -m "Portfolio"
-   git branch -M main
-   git remote add origin https://github.com/MGTxlab/portfolio.git
-   git push -u origin main
-   ```
-3. Sur GitHub : **Settings → Pages → Build and deployment → Source : GitHub Actions**.
-4. L'onglet **Actions** montre le déploiement (≈ 1 min). Le site est ensuite en ligne.
+Chaque `git push` sur `main` déclenche un nouveau déploiement automatique.
 
-Le chemin de base (`/portfolio/` ou `/`) est calculé automatiquement d'après le nom du dépôt.
+Après une modification des dépendances (`npm install <paquet>`), commite toujours **`package.json` et `package-lock.json` ensemble**. Sinon le build Vercel échoue avec « not in sync ».
 
-**Si l'adresse finale n'est pas `https://mgtxlab.github.io/portfolio/`**, remplace cette URL dans : `index.html` (balises `og:` et `canonical`), `src/content.ts` (`site.url`), `public/robots.txt` et `public/sitemap.xml`. Sinon l'aperçu LinkedIn pointera au mauvais endroit.
-
-Pour vérifier l'aperçu LinkedIn après la mise en ligne : https://www.linkedin.com/post-inspector/
-
-### Alternative : Vercel
-
-Importe le dépôt sur vercel.com : il détecte Vite tout seul (build `npm run build`, dossier `dist`). Aucune autre configuration nécessaire, le chemin de base par défaut est `/`.
+Pour vérifier l'aperçu LinkedIn : https://www.linkedin.com/post-inspector/
 
 ## Accessibilité et mouvement
 
