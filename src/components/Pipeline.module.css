@@ -1,0 +1,66 @@
+.pipeline {
+  --m: 11px; /* taille du repère */
+  position: relative;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* ligne de référence (le signal du rail la survole en version branch) */
+.track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: calc(20% - var(--m) / 2);
+  height: var(--m);
+  --branch: 0;
+}
+.track::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1px solid var(--c-rule);
+}
+.nodes {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.node {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-right: 1rem;
+  transition: opacity var(--dur) var(--ease-out);
+}
+.marker {
+  position: relative;
+  z-index: 1;
+  width: var(--m);
+  height: var(--m);
+  background: var(--c-ink);
+  border: 1px solid var(--c-kaolin);
+  margin-bottom: 1rem;
+  transition: border-color var(--dur-fast) linear, background var(--dur-fast) linear;
+}
+.label { font-weight: 650; }
+.detail { color: var(--c-mist); }
+.node[data-hit] .marker { border-color: var(--c-ochre); background: var(--c-ochre); }
+
+@media (min-width: 900px) {
+  .isBranch .track { --branch: 1; }
+  .isBranch .track::before { display: none; } /* le signal la remplace */
+}
+
+/* vertical en dessous de 900px */
+@media (max-width: 899px) {
+  .track { right: auto; bottom: 0; width: var(--m); height: auto; }
+  .track::before { left: 50%; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1px solid var(--c-rule); }
+  .nodes { grid-template-columns: 1fr; gap: 1.25rem; }
+  .node {
+    display: grid;
+    grid-template-columns: var(--m) 1fr;
+    column-gap: 1rem;
+    align-items: baseline;
+  }
+  .marker { grid-row: span 2; margin: 0; align-self: start; margin-top: 0.4em; }
+}

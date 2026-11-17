@@ -1,0 +1,70 @@
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+
+.axis {
+  fill: none;
+  stroke: var(--c-rule);
+  stroke-width: 1;
+}
+
+.hero,
+.rail,
+.branch {
+  fill: none;
+  stroke: var(--c-ochre);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.branch { stroke-width: 1.25; }
+
+.scan { fill: var(--c-kaolin); }
+
+.halo { fill: var(--c-ochre); opacity: 0.18; }
+.decision { fill: var(--c-ochre); }
+
+.head { transition: opacity 200ms linear; }
+
+.glyph path {
+  fill: none;
+  stroke: var(--c-mist);
+  stroke-width: 1;
+  transition: stroke var(--dur) var(--ease-out);
+}
+.glyphBg { fill: var(--c-ink); }
+.glyph.on path { stroke: var(--c-ochre); }
+
+.dotRing {
+  fill: var(--c-ink);
+  stroke: var(--c-rule);
+  stroke-width: 1;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: stroke var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+.dotCore {
+  fill: var(--c-rule);
+  transition: fill var(--dur) var(--ease-out);
+}
+.dot.on .dotRing { stroke: var(--c-ochre); }
+.dot.on .dotCore { fill: var(--c-ochre); }
+
+/* survol d'une expérience : son point d'échantillon s'agrandit */
+.dot[data-hover] .dotRing { transform: scale(1.7); stroke: var(--c-kaolin); }
+
+.end .decision,
+.end .halo { transform-box: fill-box; transform-origin: center; transition: transform 500ms var(--ease-out), opacity 500ms; }
+.end .decision { fill: var(--c-rule); }
+.end .halo { opacity: 0; }
+.end.on .decision { fill: var(--c-ochre); }
+.end.on .halo { opacity: 0.22; transform: scale(1.6); }
+
+/* .on : état « atteint par le signal » (posé en JS, utilisé dans les sélecteurs ci-dessus) */

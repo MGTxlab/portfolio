@@ -1,0 +1,31 @@
+.teaser { position: relative; }
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 1.5rem clamp(2rem, 6vw, 6rem);
+  align-items: end;
+}
+.title { font-size: clamp(2.6rem, 1.4rem + 4.4vw, 5.6rem); }
+
+.foot {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem 2rem;
+  border-top: 1px solid var(--c-rule);
+  padding-top: 1.25rem;
+}
+.stack { max-width: 60ch; }
+.open {
+  padding: 0.85rem 1.3rem;
+  border: 1px solid var(--c-kaolin);
+  font-weight: 650;
+  transition: background var(--dur-fast) linear, color var(--dur-fast) linear;
+}
+.open:hover { background: var(--c-kaolin); color: var(--c-ink); }
+
+@media (max-width: 720px) {
+  .head { grid-template-columns: 1fr; }
+}

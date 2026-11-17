@@ -1,0 +1,15 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import '@fontsource-variable/schibsted-grotesk/wght.css'
+import '@fontsource-variable/martian-mono/wdth.css'
+import './styles/global.css'
+import { I18nProvider } from './lib/i18n'
+import App from './App'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <I18nProvider>
+      <App />
+    </I18nProvider>
+  </StrictMode>,
+)

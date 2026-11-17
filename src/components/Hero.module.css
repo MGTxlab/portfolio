@@ -1,0 +1,99 @@
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 7rem;
+  padding-bottom: clamp(2rem, 5vh, 4rem);
+}
+
+.name {
+  font-size: var(--t-display);
+  font-weight: 760;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  display: flex;
+  flex-direction: column;
+}
+.mask {
+  display: block;
+  overflow: clip;
+  overflow-clip-margin: 0.12em;
+  padding-bottom: 0.06em;
+}
+.mask > span { display: block; }
+
+.lede {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  max-width: 34ch;
+  font-size: var(--t-lead);
+  line-height: 1.4;
+  color: var(--c-mist);
+}
+.sig { color: var(--c-kaolin); }
+
+/* zone réservée au tracé du hero (dessiné par <Signal/>) */
+.line {
+  position: relative;
+  height: clamp(96px, 14vh, 140px);
+  margin-top: clamp(1rem, 3vh, 2rem);
+  /* le tracé part de l'origine dans le rail, à gauche du contenu */
+}
+.lblStart,
+.lblEnd {
+  position: absolute;
+  bottom: 0;
+}
+.lblStart { left: 0; }
+.lblEnd { right: 0; color: var(--c-ochre); }
+
+.foot {
+  margin-top: clamp(1rem, 3vh, 2rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.75rem;
+}
+.primary {
+  display: inline-block;
+  padding: 0.9rem 1.4rem;
+  background: var(--c-kaolin);
+  color: var(--c-ink);
+  font-weight: 650;
+  text-decoration: none;
+  transition: background var(--dur-fast) linear;
+}
+.primary:hover { background: var(--c-ochre); }
+.secondary {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--c-rule);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
+  transition: text-decoration-color var(--dur-fast) linear;
+  padding-block: 0.6rem;
+}
+.secondary:hover { text-decoration-color: var(--c-ochre); }
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  text-align: right;
+}
+.avail { font-weight: 600; }
+
+@media (max-width: 720px) {
+  .meta { align-items: flex-start; text-align: left; }
+  .hero { padding-top: 6rem; }
+}
+
+/* sans JS ou avant l'intro : tout est visible (les styles initiaux sont posés par GSAP) */

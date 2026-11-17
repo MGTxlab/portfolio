@@ -1,0 +1,58 @@
+.list {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+}
+.item {
+  display: grid;
+  grid-template-columns: minmax(10rem, 1fr) minmax(0, 3fr);
+  gap: 0.5rem clamp(1.5rem, 4vw, 4rem);
+  padding-block: clamp(1.5rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--c-rule);
+}
+.item:last-child { border-bottom: 1px solid var(--c-rule); }
+
+.period {
+  color: var(--c-mist);
+  transition: color 500ms var(--ease-out);
+}
+/* le point a été atteint par le signal */
+.item[data-reached] .period { color: var(--c-ochre); }
+.kind {
+  font-size: var(--t-small);
+  color: var(--c-mist);
+  margin-top: 0.25rem;
+}
+.role {
+  margin-top: 0.3rem;
+  font-size: var(--t-lead);
+  line-height: 1.35;
+}
+.summary { margin-top: 0.75rem; color: var(--c-mist); max-width: 60ch; }
+.points {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.4rem;
+  max-width: 62ch;
+}
+.points li {
+  position: relative;
+  padding-left: 1.1rem;
+}
+.points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.45rem;
+  border-top: 1px solid var(--c-mist);
+}
+.meta {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  align-items: baseline;
+}
+
+@media (max-width: 720px) {
+  .item { grid-template-columns: 1fr; }
+}

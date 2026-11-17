@@ -1,0 +1,33 @@
+/* Tokens de design — source unique pour couleurs, typo, espacements, mouvement. */
+:root {
+  /* Palette « indigo & ocre » */
+  --c-ink: #0e1526;        /* fond, encre indigo */
+  --c-surface: #18223a;    /* surfaces : étude de cas, survols */
+  --c-kaolin: #ece8de;     /* texte principal */
+  --c-mist: #9ba5b8;       /* texte secondaire */
+  --c-ochre: #e9a23b;      /* signal, focus, état actif */
+  --c-rule: #2b3653;       /* filets, axes */
+
+  /* Typo */
+  --f-sans: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'Martian Mono Variable', 'Martian Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --t-display: clamp(3rem, 1.2rem + 7.6vw, 9.25rem);
+  --t-h2: clamp(2rem, 1.3rem + 2.6vw, 3.6rem);
+  --t-h3: clamp(1.3rem, 1.1rem + 0.7vw, 1.7rem);
+  --t-lead: clamp(1.15rem, 1rem + 0.55vw, 1.5rem);
+  --t-body: 1.0625rem;
+  --t-small: 0.9375rem;
+  --t-mono: 0.75rem;
+
+  /* Espacement & mise en page */
+  --rail: clamp(36px, 3vw + 24px, 128px); /* colonne du signal */
+  --gutter: clamp(16px, 4vw, 56px);
+  --maxw: 1240px;
+  --section: clamp(5rem, 4rem + 6vw, 10rem);
+
+  /* Mouvement */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur: 320ms;
+}
